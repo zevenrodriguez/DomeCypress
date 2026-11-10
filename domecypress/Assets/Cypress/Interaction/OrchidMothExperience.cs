@@ -47,6 +47,20 @@ public class OrchidMothExperience : MonoBehaviour
     public float orchidSize = 0.35f;
     [Tooltip("Multiplies Orchid Size (3 = three times bigger).")]
     public float orchidScale = 3f;
+    [Header("Orchid size by distance")]
+    [Tooltip("Size multiplier for an orchid close to the viewer (at Near Distance or closer).")]
+    public float nearOrchidScale = 0.75f;
+    [Tooltip("Size multiplier for an orchid far from the viewer (at Far Distance or further), so it still reads on the dome.")]
+    public float farOrchidScale = 1.6f;
+    public float nearDistance = 3f;
+    public float farDistance = 12f;
+    [Tooltip("Random size variety between orchids (0.2 = each one up to 20% bigger or smaller).")]
+    [Range(0f, 0.5f)] public float sizeVariation = 0.2f;
+    [Tooltip("Largest orchid size compared with its trunk's radius (7 = up to 7x the radius), so thin trees get small flowers.")]
+    public float maxSizePerTrunkRadius = 7f;
+    [Tooltip("How far each flower is pushed into its trunk, as a share of the flower's size " +
+             "(0 = stem base on the bark, 0.3 = sunk in by 30% of its size). Higher = sits closer to the tree.")]
+    [Range(0f, 0.6f)] public float pushIntoTrunk = 0.3f;
     [Tooltip("Turns each flower around its stem if its face isn't square to the viewer (degrees; same idea as the title scene).")]
     [Range(-180f, 180f)] public float orchidFaceYaw = 17f;
     [Tooltip("Spins each flower around the way it faces, in degrees (0 = upright).")]
@@ -55,6 +69,11 @@ public class OrchidMothExperience : MonoBehaviour
     [Range(0f, 1f)] public float orchidSmoothness = 0.35f;
     [Tooltip("Soft white glow so the orchid stands out in the dim swamp.")]
     [ColorUsage(false, true)] public Color orchidGlow = new Color(0.08f, 0.08f, 0.07f);
+    [Tooltip("A small light at each flower that softly lights the bark and roots around it (0 = off).")]
+    public float orchidLightIntensity = 0f;
+    [Tooltip("How far the flower's light reaches, in meters.")]
+    public float orchidLightRange = 2.5f;
+    public Color orchidLightColor = new Color(0.85f, 0.95f, 0.85f);
 
     [Header("Orchid roots")]
     [Tooltip("Grow a tangle of roots over the bark at the base of each orchid.")]
@@ -122,6 +141,21 @@ public class OrchidMothExperience : MonoBehaviour
     /// <summary>Orchid size actually used (Orchid Size x Orchid Scale).</summary>
     float OrchidSize => orchidSize * orchidScale;
 
+    /// <summary>
+    /// Size for an orchid at `pos`: bigger the further it is from the viewer (so far flowers still read on
+    /// the dome), smaller up close, plus a little random variety so they don't all look identical.
+    /// </summary>
+    float SizeAt(Vector3 pos)
+    {
+        Vector3 a = anchor != null ? anchor.position : transform.position;
+        float d = new Vector2(pos.x - a.x, pos.z - a.z).magnitude;
+        float k = Mathf.InverseLerp(nearDistance, farDistance, d);
+        float byDistance = Mathf.Lerp(nearOrchidScale, farOrchidScale, Mathf.SmoothStep(0f, 1f, k));
+        return OrchidSize * byDistance * UnityEngine.Random.Range(1f - sizeVariation, 1f + sizeVariation);
+    }
+
+    static float SizeOf(Visit v, float fallback) => v != null && v.size > 0f ? v.size : fallback;
+
     // ------------------------------------------------------------------ state
     public enum Phase { Idle, OrchidGrowing, OrchidWaiting, MothFlying, Feeding, Fading }
 
@@ -133,6 +167,8 @@ public class OrchidMothExperience : MonoBehaviour
         public OrchidBaseGrowth orchidBase;   // roots at the base of the flower
         public Transform flower;              // the flower model
         public List<FadeSlot> orchidFades;    // the flower's see-through (bright) materials, kept for its whole life
+        public Light glow;                    // optional soft light at the flower
+        public float size;                    // this orchid's size in meters (distance + random variety)
         public Vector3 pos, facing;
         public int tree;
         public readonly List<Material> mothMaterials = new List<Material>();
@@ -278,7 +314,14 @@ public class OrchidMothExperience : MonoBehaviour
         var orchid = v.orchid = new GameObject("Ghost Orchid (interaction)");
         orchid.transform.SetParent(transform, true);
         // a little out from the bark so the bigger flower doesn't sink into the trunk
-        orchid.transform.position = pos + facing * OrchidSize * 0.25f;
+        float size = SizeAt(pos);
+        // not much bigger than its trunk can carry: a huge flower on a thin young tree looks like it's floating
+        if (v.tree >= 0 && v.tree < _trees.Count && TrunkAt(_trees[v.tree], pos.y, out _, out float trunkR))
+            size = Mathf.Min(size, Mathf.Max(OrchidSize * 0.75f, trunkR * maxSizePerTrunkRadius));
+        v.size = size;
+        // the model's origin is the base of the stem: sink it into the bark so the flower sits close against
+        // the trunk (the flower itself still hangs out in front of it)
+        orchid.transform.position = pos - facing * size * pushIntoTrunk;
         // face forward, straight at the viewer, upright: the flower face is model +Z and the top
         // petal model +Y (same as the title scene's OrchidRootSphere)
         Vector3 toViewer = anchor.position - orchid.transform.position;
@@ -290,7 +333,7 @@ public class OrchidMothExperience : MonoBehaviour
         {
             var model = Instantiate(orchidModel, orchid.transform, false);
             ApplyOrchidMaterial(model);
-            FitSize(model.transform, OrchidSize, out _);
+            FitSize(model.transform, size, out _);
             v.flower = model.transform;
         }
         else
@@ -298,7 +341,7 @@ public class OrchidMothExperience : MonoBehaviour
             var fallback = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             Destroy(fallback.GetComponent<Collider>());
             fallback.transform.SetParent(orchid.transform, false);
-            fallback.transform.localScale = Vector3.one * OrchidSize * 0.5f;
+            fallback.transform.localScale = Vector3.one * size * 0.5f;
             v.flower = fallback.transform;
         }
 
@@ -308,13 +351,26 @@ public class OrchidMothExperience : MonoBehaviour
             var tree = _trees[v.tree];
             v.orchidBase = OrchidBaseGrowth.Create(transform, pos,
                 (float y, out Vector3 c, out float r) => TrunkAt(tree, y, out c, out r),
-                OrchidSize, orchidRootCount, RootMaterial(), orchidGrowSeconds);
+                size, orchidRootCount, RootMaterial(), orchidGrowSeconds);
         }
 
         // pop open (ease-out-back, like the title-scene orchids) while fading in. The flower keeps its
         // see-through material afterwards too: it skips the scene's ambient-occlusion darkening, so the
         // ghost orchid stays bright and glowing instead of darkening once it has opened.
         var fades = v.orchidFades = PrepareFade(orchid);
+        if (orchidLightIntensity > 0f)
+        {
+            // just in front of the flower, so it lights the bark around it and not only the petals
+            var lightGo = new GameObject("Orchid Glow");
+            lightGo.transform.SetParent(orchid.transform, false);
+            lightGo.transform.position = pos + facing * size * 0.6f + Vector3.up * size * 0.3f;
+            v.glow = lightGo.AddComponent<Light>();
+            v.glow.type = LightType.Point;
+            v.glow.color = orchidLightColor;
+            v.glow.range = orchidLightRange;
+            v.glow.shadows = LightShadows.None;   // cheap: no shadow map for these little lights
+            v.glow.intensity = 0f;
+        }
         float t = 0f;
         while (t < 1f)
         {
@@ -323,6 +379,7 @@ public class OrchidMothExperience : MonoBehaviour
             float ease = 1f + 2.4f * um1 * um1 * um1 + 1.4f * um1 * um1;
             orchid.transform.localScale = Vector3.one * Mathf.Max(0f, ease);
             SetFade(fades, Mathf.SmoothStep(0f, 1f, u * 1.5f));
+            if (v.glow != null) v.glow.intensity = orchidLightIntensity * Mathf.SmoothStep(0f, 1f, u);
             yield return null;
         }
         orchid.transform.localScale = Vector3.one;
@@ -398,7 +455,7 @@ public class OrchidMothExperience : MonoBehaviour
                 if (toViewer.sqrMagnitude < 1e-4f) continue;
                 toViewer.Normalize();
                 // a little to one side so it isn't dead-centre behind the trunk silhouette
-                toViewer = Quaternion.AngleAxis(UnityEngine.Random.Range(-35f, 35f), Vector3.up) * toViewer;
+                toViewer = Quaternion.AngleAxis(UnityEngine.Random.Range(-15f, 15f), Vector3.up) * toViewer;   // mostly the viewer-facing side, so the flower sits against the trunk
                 var p = c + toViewer * (r + 0.03f);
                 if (Blocked(a, p, ti)) continue;
                 pos = p; facing = toViewer; tree = ti;
@@ -562,6 +619,7 @@ public class OrchidMothExperience : MonoBehaviour
         {
             f += Time.deltaTime / Mathf.Max(0.1f, fadeSeconds);
             SetFade(all, 1f - Mathf.SmoothStep(0f, 1f, f));
+            if (v.glow != null) v.glow.intensity = orchidLightIntensity * (1f - Mathf.SmoothStep(0f, 1f, f));
             moth.transform.position += Vector3.up * Time.deltaTime * 0.05f;
             yield return null;
         }
@@ -604,8 +662,9 @@ public class OrchidMothExperience : MonoBehaviour
     /// </summary>
     Vector3 HoverPoint(Visit v, float outFront)
     {
-        Vector3 top = v.pos + Vector3.up * OrchidSize * 0.5f;           // fallback if the orchid is gone
-        float depth = OrchidSize * 0.5f;
+        float size = SizeOf(v, OrchidSize);
+        Vector3 top = v.pos + Vector3.up * size * 0.5f;           // fallback if the orchid is gone
+        float depth = size * 0.5f;
         if (v.orchid != null && TryGetBounds(v.orchid, out var b))
         {
             top = new Vector3(b.center.x, b.max.y, b.center.z);
