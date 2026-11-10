@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/titlescene.unity
+    guid: 419fae5146ea7b6469c9731abbe02081
+  - enabled: 1
+    path: Assets/Scenes/CypressDome.unity
+    guid: da66e51948d3cbb4cb87d0352a74d7ad
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Cypress_Water
+  m_Shader: {fileID: 4800000, guid: af1c18d3b1e2b8240a428d88a6ef76c2, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _CrestFoam: 0
+    - _DepthMaxDistance: 1.5
+    - _FoamDistance: 0.7
+    - _FoamNoiseScale: 2.5
+    - _FresnelPower: 2.5
+    - _MurkClarity: 0.35
+    - _MurkStrength: 1
+    - _MurkWaveScale: 0.02
+    - _ReflectionStrength: 0.85
+    - _RefractionStrength: 0.01
+    - _RippleScale: 0.35
+    - _RippleSpeed: 0.2
+    - _RippleStrength: 0.12
+    - _ScumCoverage: 0.47
+    - _ScumScale: 0.9
+    - _Smoothness: 0.95
+    - _SpecularIntensity: 0.6
+    - _WaveSpeed: 0.5
+    m_Colors:
+    - _DeepColor: {r: 0.11207492, g: 0.08610419, b: 0.050708696, a: 0.97}
+    - _FoamColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MurkCenter: {r: -0, g: -8, b: 0, a: 0}
+    - _MurkColor: {r: 0.17184407, g: 0.09320178, b: 0.03876, a: 0.97}
+    - _MurkEdge: {r: 0.7, g: 1.05, b: 0, a: 0}
+    - _MurkRadii: {r: 66, g: 66, b: 0, a: 0}
+    - _MurkTint: {r: 0.70141065, g: 0.5370987, b: 0.34919015, a: 1}
+    - _ScumColor: {r: 0.32566175, g: 0.5058824, b: 0.1694706, a: 1}
+    - _ShallowColor: {r: 0.18974826, g: 0.14282566, b: 0.08610419, a: 0.75}
+    - _WaveA: {r: 1, g: 0.2, b: 0.01, a: 40}
+    - _WaveB: {r: 0.3, g: 1, b: 0.01, a: 20}
+    - _WaveC: {r: -0.6, g: 0.8, b: 0.01, a: 10}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

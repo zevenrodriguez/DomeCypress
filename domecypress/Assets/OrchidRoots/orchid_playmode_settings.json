@@ -1,0 +1,98 @@
+{
+    "MonoBehaviour": {
+        "m_Enabled": true,
+        "m_EditorHideFlags": 0,
+        "m_Name": "",
+        "m_EditorClassIdentifier": "Assembly-CSharp::OrchidRootSphere",
+        "rootData": {
+            "fileID": 4900000,
+            "guid": "8f978d75ef4b4578a66a885ea0806e99",
+            "type": 3
+        },
+        "rootMaterial": {
+            "fileID": 2100000,
+            "guid": "889b9013912b46958237acb14fabf490",
+            "type": 2
+        },
+        "orchidModel": {
+            "fileID": 919132149155446097,
+            "guid": "5abddd6429654cce9d298485b8a18ef9",
+            "type": 3
+        },
+        "orchidBaseColor": {
+            "fileID": 2800000,
+            "guid": "98c9703a19804be18d37fca3eab413ac",
+            "type": 3
+        },
+        "orchidNormal": {
+            "fileID": 2800000,
+            "guid": "12be4c9ba7f34602bcc726506af86ce2",
+            "type": 3
+        },
+        "wrapInsideDome": true,
+        "domeRadius": 10.0,
+        "followCenter": {
+            "instanceID": 0
+        },
+        "domeUp": {
+            "x": 0.0,
+            "y": 1.0,
+            "z": 0.0
+        },
+        "seed": 7,
+        "nodeCount": 10,
+        "nodeElevationMin": 6.0,
+        "nodeElevationMax": 38.0,
+        "climbersPerNode": 2,
+        "gripRootsPerNode": 4,
+        "orchidCount": 4,
+        "domeNorth": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0
+        },
+        "orchidAzimuthOffset": 0.0,
+        "orchidElevation": 60.0,
+        "orchidStagger": 15.0,
+        "orchidElevationMin": 86.0,
+        "orchidElevationMax": 89.0,
+        "climbSteer": 0.004000000189989805,
+        "climbDoneFrame": 380.0,
+        "orchidsStartAt": 0.1940000057220459,
+        "playOnStart": true,
+        "playbackSpeed": 1.0,
+        "loop": false,
+        "holdAtEndSeconds": 3.0,
+        "startFrame": 0.0,
+        "growSpeedMultiplier": 1.0,
+        "swayStrengthMultiplier": 1.0,
+        "sides": 8,
+        "castShadows": 1,
+        "showOrchids": true,
+        "orchidScaleMultiplier": 1.7999999523162842,
+        "orchidsFaceInward": true,
+        "orchidSmoothness": 0.3499999940395355,
+        "presentFlowerToCenter": true,
+        "flowerFaceYaw": 56.0,
+        "flowerFaceTilt": 13.0,
+        "tailsPointToCenter": true,
+        "flowerFaceRoll": 36.0,
+        "stemFromEdge": false,
+        "settleAtEnd": true,
+        "settleSeconds": 2.0,
+        "poseOrchidsByHand": true,
+        "useSavedPose": true,
+        "savedPose": {
+            "fileID": 4900000,
+            "guid": "d86b775399e5cd8429c631e8442ec271",
+            "type": 3
+        },
+        "fadeRootsAfterBloom": true,
+        "rootFadeDelaySeconds": 0.0,
+        "rootFadeSeconds": 3.0,
+        "showSphere": false,
+        "sphereMaterial": {
+            "instanceID": 0
+        }
+    }
+}

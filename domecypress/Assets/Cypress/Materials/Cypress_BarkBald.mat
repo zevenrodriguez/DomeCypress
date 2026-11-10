@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Cypress_BarkBald
+  m_Shader: {fileID: 4800000, guid: 4fbb79b0043cd9e47b5bd2739faceddd, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _BandNoise: 0.6
+    - _BumpHeight: 0.008
+    - _MossTop: 0.55
+    - _PaleAmount: 0.5
+    - _Smoothness: 0.12
+    - _WetSmoothness: 0.65
+    m_Colors:
+    - _CinnamonColor: {r: 0.44920385, g: 0.32272607, b: 0.24780047, a: 1}
+    - _CrackColor: {r: 0.33183, g: 0.293372, b: 0.24780047, a: 1}
+    - _GreyColor: {r: 0.56572837, g: 0.5370987, b: 0.49560964, a: 1}
+    - _MossBand: {r: 1, g: 1.9, b: 0, a: 0}
+    - _MossColorA: {r: 0.24780047, g: 0.293372, b: 0.12835401, a: 1}
+    - _MossColorB: {r: 0.50638634, g: 0.56572837, b: 0.2209163, a: 1}
+    - _PatchScale: {r: 1.6, g: 0.25, b: 0, a: 0}
+    - _PlateScale: {r: 9, g: 1.2, b: 0, a: 0}
+    - _WetBand: {r: 0.25, g: 0.75, b: 0, a: 0}
+    - _WetColor: {r: 0.11207492, g: 0.10612615, b: 0.08610419, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

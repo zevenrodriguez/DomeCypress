@@ -1,0 +1,9 @@
+{
+  "frame": 7075.1,
+  "orchids": [
+    { "index": 0, "active": true, "localPosition": [-4.5500, 4.1900, 7.7700], "localEuler": [89.50, 172.15, 35.00], "localRotation": [0.25902, 0.66124, -0.65524, 0.25757], "localScale": [5.2950, 5.2950, 5.2950], "worldPosition": [-2.5398, 0.9564, -9.6010] },
+    { "index": 1, "active": true, "localPosition": [5.6500, 8.1600, 2.0300], "localEuler": [17.60, 233.00, 206.70], "localRotation": [0.87626, -0.13779, -0.39742, 0.23503], "localScale": [5.2950, 5.2950, 5.2950], "worldPosition": [-5.3505, 9.5252, -1.1497] },
+    { "index": 2, "active": true, "localPosition": [4.9000, 5.9400, -0.4000], "localEuler": [31.93, 308.90, 169.08], "localRotation": [-0.38918, -0.28645, 0.87477, -0.03554], "localScale": [5.2950, 5.2950, 5.2950], "worldPosition": [-3.0669, 8.0252, 0.8330] },
+    { "index": 3, "active": true, "localPosition": [4.3800, 3.5800, -3.4100], "localEuler": [58.90, 354.01, 116.60], "localRotation": [0.21929, -0.44165, 0.75336, 0.43509], "localScale": [5.2950, 5.2950, 5.2950], "worldPosition": [-0.5186, 6.6484, 3.3846] }
+  ]
+}
