@@ -497,6 +497,7 @@ public class OrchidMothExperience : MonoBehaviour
         Vector3 start = anchor.TransformPoint(mothSpawnOffset);
 
         var moth = v.moth = CreateMoth(species, start, v.mothMaterials);
+        SwampAudio.PlayFlap();   // wing sound as it leaves the centre
 
         var fades = PrepareFade(moth);
         // flight: a curving path out of the centre of the dome, swinging up and around to the flower
@@ -655,6 +656,7 @@ public class OrchidMothExperience : MonoBehaviour
         var materials = new List<Material>();
         Vector3 start = anchor.TransformPoint(mothSpawnOffset);
         var moth = CreateMoth(species, start, materials);
+        SwampAudio.PlayFlap();
 
         // hover beside the flower, off to one side so it doesn't sit on the orchid's own moth
         Vector3 side = Vector3.Cross(Vector3.up, v.facing).normalized * (UnityEngine.Random.value < 0.5f ? -1f : 1f);

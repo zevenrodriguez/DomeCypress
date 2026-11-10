@@ -34011,6 +34011,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458296882}
   m_Mesh: {fileID: 4300000, guid: fce80c215daf4fc489831dec87c8f37d, type: 2}
+--- !u!1 &1459423781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459423783}
+  - component: {fileID: 1459423782}
+  m_Layer: 0
+  m_Name: Swamp Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1459423782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459423781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa227a36045789448b3f8e39b35bb4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwampAudio
+  ambience: {fileID: 8300000, guid: 478b4bc893babda4bb617fb6eb440eea, type: 3}
+  ambienceVolume: 0.5
+  ambienceFadeIn: 3
+  flapSounds:
+  - {fileID: 8300000, guid: eda97174fc8f2914cadc06523464787a, type: 3}
+  - {fileID: 8300000, guid: deadd749ff296cd4eafe227e115030c9, type: 3}
+  - {fileID: 8300000, guid: 001805cc9b41a764b85cf842e7c220fc, type: 3}
+  - {fileID: 8300000, guid: fb880eceda792e14d8b4af73e4da1a0e, type: 3}
+  - {fileID: 8300000, guid: b1922382b256a4240a80bd1c2fd4c78f, type: 3}
+  - {fileID: 8300000, guid: 517a2c6d4648c2447a701bb97030390c, type: 3}
+  flapVolume: 0.3
+--- !u!4 &1459423783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459423781}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1459439223
 GameObject:
   m_ObjectHideFlags: 0
@@ -48784,3 +48839,4 @@ SceneRoots:
   - {fileID: 531728514}
   - {fileID: 1237541357}
   - {fileID: 230182440}
+  - {fileID: 1459423783}

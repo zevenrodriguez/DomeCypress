@@ -173,6 +173,7 @@ public class OrchidMoths : MonoBehaviour
         }
         _allSpawned = true;
         _spawning = null;
+        if (_moths.Count > 0) SwampAudio.PlayFlap();   // the moths take off together: one wing sound
     }
 
     // The moth FBX was exported from Blender with its scene's Sun light and Camera. Inside the dome they
